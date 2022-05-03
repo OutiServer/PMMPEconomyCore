@@ -5,9 +5,9 @@ branches:
 projects:
   PMMPEconomyCore:
     path: ""
-    libs:
-      - src: poggit/libasynql/libasynql
-        version: ^4.0.1
-      - src: CortexPE/Commando/Commando
-          version: ^3.0.0
+    #libs:
+      #- src: poggit/libasynql/libasynql
+      #  version: ^4.0.1
+      #- src: CortexPE/Commando/Commando
+        #  version: ^3.0.0
 ...
