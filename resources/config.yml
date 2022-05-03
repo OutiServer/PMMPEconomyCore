@@ -1,0 +1,7 @@
+# Configのバージョン
+version: 1.0.0
+
+# Economy設定
+economy:
+  # プレイヤーの初期所持金
+  default-player-money: 10000

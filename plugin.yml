@@ -1,0 +1,16 @@
+name: EconomyCore
+author: Ken_Cir
+version: 1.0.0
+api: 4.0.0
+main: Ken_Cir\EconomyCore\EconomyCore
+
+permissions:
+  economy.command.economy.money:
+    description: Money SubCommand Permission
+    default: true
+  economy.command.admin.addMoney:
+    description: AddMoney SubCommand Permission
+    default: op
+  economy.command.admin.removeMoney:
+    description: RemoveMoney SubCommand Permission
+    default: op

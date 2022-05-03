@@ -1,0 +1,13 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/OutiServer/PMMPEconomyCore
+build-by-default: true
+branches:
+- master
+projects:
+  PMMPEconomyCore:
+    path: ""
+    libs:
+      - src: poggit/libasynql/libasynql
+        version: ^4.0.1
+      - src: CortexPE/Commando/Commando
+          version: ^3.0.0
+...
