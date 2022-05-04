@@ -1,0 +1,10 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PhpStanGlobal" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="level" value="0" />
+      <option name="config" value="$PROJECT_DIR$/phpstan.neon.dist" />
+      <option name="autoload" value="$PROJECT_DIR$/vendor/autoload.php" />
+    </inspection_tool>
+  </profile>
+</component>
