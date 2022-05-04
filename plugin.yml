@@ -14,3 +14,6 @@ permissions:
   economy.command.admin.removeMoney:
     description: RemoveMoney SubCommand Permission
     default: op
+  economy.command.admin.setMoney:
+    description: setMoney SubCommand Permission
+    default: op
