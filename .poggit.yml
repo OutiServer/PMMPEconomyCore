@@ -8,6 +8,7 @@ projects:
     libs:
       - src: poggit/libasynql/libasynql
         version: ^4.0.1
-      - src: Paroxity/Commando/Commando
+      - src: CortexPE/Commando/Commando
         version: ^3.0.0
+        branch: PM4
 ...
