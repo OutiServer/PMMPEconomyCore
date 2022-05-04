@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ken_Cir\EconomyCore;
 
 use CortexPE\Commando\PacketHooker;
-use Ken_Cir\EconomyCore\Commands\Admin\AddMoneyCommand;
-use Ken_Cir\EconomyCore\Commands\Admin\RemoveMoneyCommand;
-use Ken_Cir\EconomyCore\Commands\Economy\MoneyCommand;
+use Ken_Cir\EconomyCore\Commands\Admin\AddMoneySubCommand;
+use Ken_Cir\EconomyCore\Commands\Admin\RemoveMoneySubCommand;
+use Ken_Cir\EconomyCore\Commands\Economy\MoneySubCommand;
+use Ken_Cir\EconomyCore\Commands\EconomyCommand;
 use Ken_Cir\EconomyCore\Database\Economy\EconomyDataManager;
 use Ken_Cir\EconomyCore\Database\Player\PlayerDataManager;
 use Ken_Cir\EconomyCore\Handlers\EventHandler;
@@ -75,20 +76,10 @@ class EconomyCore extends PluginBase
         }
 
         $this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);
-        $this->getServer()->getCommandMap()->registerAll($this->getName(), [
-            new MoneyCommand($this,
-            "money",
-            "所持金を確認する",
-            []),
-            new AddMoneyCommand($this,
-            "addmoney",
-            "所持金を増やす",
-            []),
-            new RemoveMoneyCommand($this,
-            "removemoney",
-            "所持金を減らす",
-            [])
-        ]);
+        $this->getServer()->getCommandMap()->register($this->getName(), new EconomyCommand($this,
+            "economy",
+            "Economy Core Command",
+            []));
     }
 
     protected function onDisable(): void

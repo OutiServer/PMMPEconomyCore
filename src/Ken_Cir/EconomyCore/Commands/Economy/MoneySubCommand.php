@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Ken_Cir\EconomyCore\Commands\Economy;
 
 use CortexPE\Commando\args\RawStringArgument;
-use CortexPE\Commando\BaseCommand;
+use CortexPE\Commando\BaseSubCommand;
 use Ken_Cir\EconomyCore\Database\Economy\EconomyDataManager;
 use Ken_Cir\EconomyCore\Database\Player\PlayerDataManager;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 
-class MoneyCommand extends BaseCommand
+class MoneySubCommand extends BaseSubCommand
 {
     protected function prepare(): void
     {

@@ -5,6 +5,9 @@ api: 4.0.0
 main: Ken_Cir\EconomyCore\EconomyCore
 
 permissions:
+  economy.command:
+    description: Economy Command Permission
+    default: true
   economy.command.economy.money:
     description: Money SubCommand Permission
     default: true

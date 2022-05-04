@@ -6,13 +6,13 @@ namespace Ken_Cir\EconomyCore\Commands\Admin;
 
 use CortexPE\Commando\args\IntegerArgument;
 use CortexPE\Commando\args\RawStringArgument;
-use CortexPE\Commando\BaseCommand;
+use CortexPE\Commando\BaseSubCommand;
 use Ken_Cir\EconomyCore\Database\Economy\EconomyDataManager;
 use Ken_Cir\EconomyCore\Database\Player\PlayerDataManager;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;
 
-class AddMoneyCommand extends BaseCommand
+class AddMoneySubCommand extends BaseSubCommand
 {
     protected function prepare(): void
     {
