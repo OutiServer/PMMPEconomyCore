@@ -29,7 +29,7 @@ class MoneySubCommand extends BaseSubCommand
                 $sender->sendMessage(TextFormat::GREEN . "[EconomyCore] {$playerData->getName()}の所持金は{$economyData->getMoney()}円です");
             }
             else {
-                $sender->sendMessage(TextFormat::RED . "[EconomyCore] プレイヤー名 {$args["playerName"]} のデータが見つかりませんでした");
+                $sender->sendMessage(TextFormat::RED . "[EconomyCore] プレイヤー名{$args["playerName"]}のデータが見つかりませんでした");
             }
         }
         elseif ($sender instanceof Player) {

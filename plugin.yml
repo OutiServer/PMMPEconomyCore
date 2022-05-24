@@ -11,6 +11,9 @@ permissions:
   economy.command.economy.money:
     description: Money SubCommand Permission
     default: true
+  economy.command.economy.form:
+    description: Form SubCommand Permission
+    default: true
   economy.command.admin.addMoney:
     description: AddMoney SubCommand Permission
     default: op
