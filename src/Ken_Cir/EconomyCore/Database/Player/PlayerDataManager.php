@@ -42,6 +42,22 @@ class PlayerDataManager extends BaseDataManager
         return array_shift($playerData);
     }
 
+    /**
+     * @param string $name
+     * @return PlayerData[]
+     */
+    public function getNamePrefix(string $name): array
+    {
+        $result = [];
+        foreach ($this->data as $data) {
+            if (stripos($data->getName(), $name) === 0) {
+                $result[] = $data;
+            }
+        }
+
+        return $result;
+    }
+
     public function create(string $xuid, string $name): PlayerData
     {
         if (($data = $this->getXuid($xuid)) !== null) return $data;

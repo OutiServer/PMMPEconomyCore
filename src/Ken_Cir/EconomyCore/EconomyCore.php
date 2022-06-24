@@ -12,6 +12,7 @@ use Ken_Cir\EconomyCore\Commands\EconomyCommand;
 use Ken_Cir\EconomyCore\Database\Economy\EconomyDataManager;
 use Ken_Cir\EconomyCore\Database\Player\PlayerDataManager;
 use Ken_Cir\EconomyCore\Handlers\EventHandler;
+use Ken_Cir\LibFormAPI\FormStack\StackFormManager;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
@@ -29,6 +30,8 @@ class EconomyCore extends PluginBase
     private PlayerDataManager $playerDataManager;
 
     private EconomyDataManager $economyDataManager;
+
+    private StackFormManager $stackFormManager;
 
     protected function onLoad(): void
     {
@@ -75,6 +78,8 @@ class EconomyCore extends PluginBase
             PacketHooker::register($this);
         }
 
+        $this->stackFormManager = new StackFormManager();
+
         $this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);
         $this->getServer()->getCommandMap()->register($this->getName(), new EconomyCommand($this,
             "economy",
@@ -110,5 +115,13 @@ class EconomyCore extends PluginBase
     public function getEconomyDataManager(): EconomyDataManager
     {
         return $this->economyDataManager;
+    }
+
+    /**
+     * @return StackFormManager
+     */
+    public function getStackFormManager(): StackFormManager
+    {
+        return $this->stackFormManager;
     }
 }

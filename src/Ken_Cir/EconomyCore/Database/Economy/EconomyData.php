@@ -64,6 +64,6 @@ class EconomyData extends BaseData
     public function removeMoney(int $removeMoney): void
     {
         $this->money -= $removeMoney;
-        $this->update();;
+        $this->update();
     }
 }
