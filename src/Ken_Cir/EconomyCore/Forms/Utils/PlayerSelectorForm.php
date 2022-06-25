@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ken_Cir\EconomyCore\Forms\Utils;
 
-use Ken_Cir\EconomyCore\Database\Economy\EconomyDataManager;
 use Ken_Cir\EconomyCore\Database\Player\PlayerDataManager;
 use Ken_Cir\EconomyCore\EconomyCore;
 use Ken_Cir\LibFormAPI\FormContents\SimpleForm\SimpleFormButton;
