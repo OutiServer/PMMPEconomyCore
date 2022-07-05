@@ -12,7 +12,6 @@ projects:
         version: ^4.1.0
       - src: KenCir/Commando/Commando
         version: ^3.1.0
-        branch: PM4
       - src: KenCir/PMMPLibFormAPI/LibFormAPI
         version: ^1.0.0
 ...
