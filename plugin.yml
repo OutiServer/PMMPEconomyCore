@@ -2,7 +2,8 @@ name: EconomyCore
 author: Ken_Cir
 version: 1.0.0
 api: 4.0.0
-main: Ken_Cir\EconomyCore\EconomyCore
+main: outiserver\economycore\EconomyCore
+src-namespace-prefix: outiserver\economycore
 
 permissions:
   economy.command:
