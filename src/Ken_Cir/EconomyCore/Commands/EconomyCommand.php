@@ -11,7 +11,6 @@ use Ken_Cir\EconomyCore\Commands\Admin\SetMoneySubCommand;
 use Ken_Cir\EconomyCore\Commands\Economy\FormSubCommand;
 use Ken_Cir\EconomyCore\Commands\Economy\MoneySubCommand;
 use pocketmine\command\CommandSender;
-use pocketmine\utils\TextFormat;
 
 class EconomyCommand extends BaseCommand
 {
