@@ -65,8 +65,6 @@ class EconomyCore extends PluginBase
         $this->dataConnector = libasynql::create($this, (new Config($this->getDataFolder() . "database.yml", Config::YAML))->get("database"), [
             "sqlite" => "sqlite.sql"
         ]);
-        #$this->dataConnector->executeGeneric("economy.core.players.drop");
-        #$this->dataConnector->executeGeneric("economy.core.economys.drop");
         $this->dataConnector->executeGeneric("economy.core.players.init");
         $this->dataConnector->executeGeneric("economy.core.economys.init");
         $this->dataConnector->waitAll();
