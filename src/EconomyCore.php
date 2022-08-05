@@ -8,11 +8,12 @@ use CortexPE\Commando\PacketHooker;
 use outiserver\economycore\Commands\Admin\AddMoneySubCommand;
 use outiserver\economycore\Commands\Admin\RemoveMoneySubCommand;
 use outiserver\economycore\Commands\Economy\MoneySubCommand;
-use outiserver\economycore\Commands\EconomyCommand;
+use outiserver\economycore\Commands\EconomyFormCommand;
 use outiserver\economycore\Database\Economy\EconomyDataManager;
 use outiserver\economycore\Database\Player\PlayerDataManager;
 use outiserver\economycore\Handlers\EventHandler;
 use Ken_Cir\LibFormAPI\FormStack\StackFormManager;
+use outiserver\economycore\Language\LanguageManager;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
@@ -33,6 +34,8 @@ class EconomyCore extends PluginBase
 
     private StackFormManager $stackFormManager;
 
+    private LanguageManager $languageManager;
+
     protected function onLoad(): void
     {
         self::setInstance($this);
@@ -40,6 +43,7 @@ class EconomyCore extends PluginBase
 
     protected function onEnable(): void
     {
+        /*
         if (@file_exists("{$this->getDataFolder()}database.yml")) {
             $config = new Config("{$this->getDataFolder()}database.yml", Config::YAML);
             // データベース設定のバージョンが違う場合は
@@ -58,6 +62,7 @@ class EconomyCore extends PluginBase
                 $this->getLogger()->warning("前バージョンのconfig.ymlは{$this->getDataFolder()}config.yml.{$config->get("version")}にあります");
             }
         }
+        */
 
         $this->saveResource("database.yml");
         $this->saveResource("config.yml");
@@ -77,12 +82,14 @@ class EconomyCore extends PluginBase
         }
 
         $this->stackFormManager = new StackFormManager();
+        $this->languageManager = new LanguageManager("{$this->getFile()}resources/lang");
 
         $this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);
-        $this->getServer()->getCommandMap()->register($this->getName(), new EconomyCommand($this,
-            "economy",
-            "Economy Core Command",
-            []));
+        $this->getServer()->getCommandMap()->register($this->getName(), new EconomyFormCommand($this,
+            "economyform",
+            "EconomyCore Form Command",
+            "/economyform",
+        []));
     }
 
     protected function onDisable(): void
@@ -121,5 +128,13 @@ class EconomyCore extends PluginBase
     public function getStackFormManager(): StackFormManager
     {
         return $this->stackFormManager;
+    }
+
+    /**
+     * @return LanguageManager
+     */
+    public function getLanguageManager(): LanguageManager
+    {
+        return $this->languageManager;
     }
 }

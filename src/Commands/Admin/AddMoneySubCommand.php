@@ -9,6 +9,7 @@ use CortexPE\Commando\args\RawStringArgument;
 use CortexPE\Commando\BaseSubCommand;
 use outiserver\economycore\Database\Economy\EconomyDataManager;
 use outiserver\economycore\Database\Player\PlayerDataManager;
+use outiserver\economycore\EconomyCore;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\TextFormat;
 
@@ -26,13 +27,13 @@ class AddMoneySubCommand extends BaseSubCommand
         if (isset($args["playerName"]) and isset($args["addMoney"])) {
             $playerData = PlayerDataManager::getInstance()->getName($args["playerName"]);
             if ($playerData === null) {
-                $sender->sendMessage(TextFormat::RED . "[EconomyCore] プレイヤー名 {$args["playerName"]} のデータが見つかりませんでした");
+                $sender->sendMessage(EconomyCore::getInstance()->getLanguageManager()->getLanguage($sender->getLanguage()->getLang())->translateString("command.money.error.player_not_found", [$args["playerName"]]));
                 return;
             }
 
             $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
             $economyData->addMoney($args["addMoney"]);
-            $sender->sendMessage(TextFormat::GREEN . "[EconomyCore] {$playerData->getName()}に{$args["addMoney"]}円増やしました、現在の所持金は{$economyData->getMoney()}円です");
+            $sender->sendMessage(EconomyCore::getInstance()->getLanguageManager()->getLanguage($sender->getLanguage()->getLang())->translateString("command.money.add.success", [$playerData->getName(), $args["addMoney"], $economyData->getMoney()]));
         }
         else {
             $this->sendUsage();

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace outiserver\economycore\Commands\Economy;
 
 use CortexPE\Commando\BaseSubCommand;
+use outiserver\economycore\EconomyCore;
 use outiserver\economycore\Forms\EconomyForm;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
@@ -20,7 +21,7 @@ class FormSubCommand extends BaseSubCommand
     public function onRun(CommandSender $sender, string $aliasUsed, array $args): void
     {
         if (!$sender instanceof Player) {
-            $sender->sendMessage(TextFormat::RED . "このコマンドはサーバー内でのみ実行可能です");
+            $sender->sendMessage(EconomyCore::getInstance()->getLanguageManager()->getLanguage($sender->getLanguage()->getLang())->translateString("command.error.please_used_server"));
             return;
         }
 
