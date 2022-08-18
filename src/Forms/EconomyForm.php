@@ -16,10 +16,10 @@ class EconomyForm implements BaseForm
     {
         $form = new SimpleForm(EconomyCore::getInstance(),
             $player,
-        "[EconomyCore] Form",
+        EconomyCore::getInstance()->getLanguageManager()->getLanguage($player->getLocale())->translateString("form.economyform.title"),
         "",
         [
-            new SimpleFormButton("所持金の確認"),
+            new SimpleFormButton(EconomyCore::getInstance()->getLanguageManager()->getLanguage($player->getLocale())->translateString("form.economyform.button1")),
         ],
         function (Player $player, int $data): void {
             if ($data === 0) {

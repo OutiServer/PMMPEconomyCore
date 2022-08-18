@@ -14,6 +14,7 @@ use Ken_Cir\LibFormAPI\FormContents\CustomForm\ContentInput;
 use Ken_Cir\LibFormAPI\FormContents\CustomForm\ContentLabel;
 use Ken_Cir\LibFormAPI\Forms\CustomForm;
 use Ken_Cir\LibFormAPI\Utils\FormUtil;
+use outiserver\economycore\Language\LanguageManager;
 use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 
@@ -23,15 +24,15 @@ class MoneyForm implements BaseForm
     {
         $form = new CustomForm(EconomyCore::getInstance(),
             $player,
-        "[EconomyCore] 所持金の確認",
+        LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.title"),
         [
-            new ContentInput("所持金を確認するプレイヤー名", "playerName"),
-            new ContentLabel(TextFormat::YELLOW . "このフィールドを空にすると自分の所持金を確認できます")
+            new ContentInput(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.input1"), "playerName"),
+            new ContentLabel(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.label1"))
         ],
         function (Player $player, array $data): void {
             if (!$data[0]) {
                 $economyData = EconomyDataManager::getInstance()->get($player->getXuid());
-                $player->sendMessage(TextFormat::GREEN . "あなたの所持金は{$economyData->getMoney()}円です");
+                $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.me", [$economyData->getMoney()]));
             }
             elseif ($playerData = PlayerDataManager::getInstance()->getName($data[0])) {
                 $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
