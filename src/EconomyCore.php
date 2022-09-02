@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace outiserver\economycore;
 
 use CortexPE\Commando\PacketHooker;
-use outiserver\economycore\Commands\Admin\AddMoneySubCommand;
-use outiserver\economycore\Commands\Admin\RemoveMoneySubCommand;
-use outiserver\economycore\Commands\Economy\MoneySubCommand;
 use outiserver\economycore\Commands\EconomyFormCommand;
 use outiserver\economycore\Database\Economy\EconomyDataManager;
 use outiserver\economycore\Database\Player\PlayerDataManager;
@@ -43,7 +40,6 @@ class EconomyCore extends PluginBase
 
     protected function onEnable(): void
     {
-        /*
         if (@file_exists("{$this->getDataFolder()}database.yml")) {
             $config = new Config("{$this->getDataFolder()}database.yml", Config::YAML);
             // データベース設定のバージョンが違う場合は
@@ -62,13 +58,13 @@ class EconomyCore extends PluginBase
                 $this->getLogger()->warning("前バージョンのconfig.ymlは{$this->getDataFolder()}config.yml.{$config->get("version")}にあります");
             }
         }
-        */
 
         $this->saveResource("database.yml");
         $this->saveResource("config.yml");
 
         $this->dataConnector = libasynql::create($this, (new Config($this->getDataFolder() . "database.yml", Config::YAML))->get("database"), [
-            "sqlite" => "sqlite.sql"
+            "sqlite" => "sql/sqlite.sql",
+            "mysql" => "sql/mysql.sql"
         ]);
         $this->dataConnector->executeGeneric("economy.core.players.init");
         $this->dataConnector->executeGeneric("economy.core.economys.init");
