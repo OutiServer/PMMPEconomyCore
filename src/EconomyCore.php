@@ -66,7 +66,6 @@ class EconomyCore extends PluginBase
             "sqlite" => "sql/sqlite.sql",
             "mysql" => "sql/mysql.sql"
         ]);
-        var_dump((new Config($this->getDataFolder() . "database.yml", Config::YAML))->get("database"));
         $this->dataConnector->executeGeneric("economy.core.players.init");
         $this->dataConnector->executeGeneric("economy.core.economys.init");
         $this->dataConnector->waitAll();
