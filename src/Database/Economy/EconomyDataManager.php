@@ -22,7 +22,6 @@ class EconomyDataManager extends BaseDataManager
         $this->dataConnector->executeSelect("economy.core.economys.load",
             [],
             function (array $row) {
-                var_dump("Economy Loaded");
                 foreach ($row as $data) {
                     $this->data[$data["xuid"]] = new EconomyData($this->dataConnector, $data["xuid"], $data["money"]);
                 }
@@ -47,7 +46,7 @@ class EconomyDataManager extends BaseDataManager
                 "xuid" => $xuid,
                 "money" => $money
             ],
-        null,
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });
@@ -63,7 +62,7 @@ class EconomyDataManager extends BaseDataManager
             [
                 "xuid" => $xuid,
             ],
-        null,
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });

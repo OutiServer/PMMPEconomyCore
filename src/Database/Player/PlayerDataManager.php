@@ -21,14 +21,14 @@ class PlayerDataManager extends BaseDataManager
         self::setInstance($this);
 
         $this->dataConnector->executeSelect("economy.core.players.load",
-        [],
-        function (array $row) {
-            foreach ($row as $data) {
-                $this->data[$data["xuid"]] = new PlayerData($this->dataConnector, $data["xuid"], $data["name"]);
-            }
-        },
+            [],
+            function (array $row) {
+                foreach ($row as $data) {
+                    $this->data[$data["xuid"]] = new PlayerData($this->dataConnector, $data["xuid"], $data["name"]);
+                }
+            },
             function (SqlError $error) {
-            EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });
     }
 
@@ -68,11 +68,11 @@ class PlayerDataManager extends BaseDataManager
         if (($data = $this->getXuid($xuid)) !== null) return $data;
 
         $this->dataConnector->executeInsert("economy.core.players.create",
-        [
-            "xuid" => $xuid,
-            "name" => strtolower($name)
-        ],
-        null,
+            [
+                "xuid" => $xuid,
+                "name" => strtolower($name)
+            ],
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });
@@ -87,10 +87,10 @@ class PlayerDataManager extends BaseDataManager
         EconomyDataManager::getInstance()->delete($xuid);
 
         $this->dataConnector->executeGeneric("economy.core.players.delete",
-        [
-            "xuid" => $xuid,
-        ],
-        null,
+            [
+                "xuid" => $xuid,
+            ],
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });

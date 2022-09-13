@@ -22,7 +22,7 @@ class RemoveMoneyForm implements BaseForm
 
     public function execute(Player $player): void
     {
-       $form =  new CustomForm(EconomyCore::getInstance(),
+        $form = new CustomForm(EconomyCore::getInstance(),
             $player,
             LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.removemoney.title"),
             [
@@ -35,21 +35,18 @@ class RemoveMoneyForm implements BaseForm
                     // マイナス対策
                     if (($economyData->getMoney() - (int)$data[1]) < 0) {
                         $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.admin.error1"));
-                    }
-                    else {
+                    } else {
                         $economyData->removeMoney((int)$data[1]);
                         $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.removemoney.success", [$playerData->getName(), $data[1], (string)$economyData->getMoney()]));
                     }
-                }
-                else {
+                } else {
                     $playerSelectorForm = new PlayerSelectorForm();
                     $playerSelectorForm->execute($player, $data[0], function (Player $player, PlayerData $playerData) use ($data): void {
                         $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
                         // マイナス対策
                         if (($economyData->getMoney() - (int)$data[1]) < 0) {
                             $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.admin.error1"));
-                        }
-                        else {
+                        } else {
                             $economyData->removeMoney((int)$data[1]);
                             $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.removemoney.success", [$playerData->getName(), $data[1], (string)$economyData->getMoney()]));
                         }
@@ -68,10 +65,10 @@ class RemoveMoneyForm implements BaseForm
                     [],
                     3);
             },
-           function (Player $player): void {
-               EconomyCore::getInstance()->getStackFormManager()->deleteStackForm($player->getXuid(), self::FORM_KEY);
-               EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid())->reSend();
-           });
+            function (Player $player): void {
+                EconomyCore::getInstance()->getStackFormManager()->deleteStackForm($player->getXuid(), self::FORM_KEY);
+                EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid())->reSend();
+            });
 
         EconomyCore::getInstance()->getStackFormManager()->addStackForm($player->getXuid(), self::FORM_KEY, $form);
     }

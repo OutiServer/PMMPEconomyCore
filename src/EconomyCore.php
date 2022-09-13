@@ -67,14 +67,14 @@ class EconomyCore extends PluginBase
             "mysql" => "sql/mysql.sql"
         ]);
         $this->dataConnector->executeGeneric("economy.core.players.init",
-        [],
-        null,
+            [],
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });
         $this->dataConnector->executeGeneric("economy.core.economys.init",
-        [],
-        null,
+            [],
+            null,
             function (SqlError $error) {
                 EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
             });
@@ -93,7 +93,7 @@ class EconomyCore extends PluginBase
             "economyform",
             "EconomyCore Form Command",
             "/economyform",
-        []));
+            []));
     }
 
     protected function onDisable(): void

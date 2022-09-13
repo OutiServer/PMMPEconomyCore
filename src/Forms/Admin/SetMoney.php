@@ -33,13 +33,11 @@ class SetMoney implements BaseForm
                 // マイナス対策
                 if ((int)$data[1] < 0) {
                     $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.admin.error1"));
-                }
-                elseif ($playerData = PlayerDataManager::getInstance()->getName($data[0])) {
+                } elseif ($playerData = PlayerDataManager::getInstance()->getName($data[0])) {
                     $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
                     $economyData->setMoney((int)$data[1]);
                     $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.setmoney.success", [$playerData->getName(), $data[1], (string)$economyData->getMoney()]));
-                }
-                else {
+                } else {
                     $playerSelectorForm = new PlayerSelectorForm();
                     $playerSelectorForm->execute($player, $data[0], function (Player $player, PlayerData $playerData) use ($data): void {
                         $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
