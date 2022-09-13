@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace outiserver\economycore;
 
-use CortexPE\Commando\PacketHooker;
 use outiserver\economycore\Commands\EconomyFormCommand;
 use outiserver\economycore\Database\Economy\EconomyDataManager;
 use outiserver\economycore\Database\Player\PlayerDataManager;
@@ -72,10 +71,6 @@ class EconomyCore extends PluginBase
 
         $this->playerDataManager = new PlayerDataManager($this->dataConnector);
         $this->economyDataManager = new EconomyDataManager($this->dataConnector);
-
-        if (!PacketHooker::isRegistered()) {
-            PacketHooker::register($this);
-        }
 
         $this->stackFormManager = new StackFormManager();
         $this->languageManager = new LanguageManager("{$this->getFile()}resources/lang");
