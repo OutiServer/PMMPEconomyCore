@@ -6,8 +6,10 @@ namespace outiserver\economycore\Database\Player;
 
 use outiserver\economycore\Database\Base\BaseDataManager;
 use outiserver\economycore\Database\Economy\EconomyDataManager;
+use outiserver\economycore\EconomyCore;
 use pocketmine\utils\SingletonTrait;
 use poggit\libasynql\DataConnector;
+use poggit\libasynql\SqlError;
 
 class PlayerDataManager extends BaseDataManager
 {
@@ -24,7 +26,10 @@ class PlayerDataManager extends BaseDataManager
             foreach ($row as $data) {
                 $this->data[$data["xuid"]] = new PlayerData($this->dataConnector, $data["xuid"], $data["name"]);
             }
-        });
+        },
+            function (SqlError $error) {
+            EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
     }
 
     public function getXuid(string $xuid): ?PlayerData
@@ -66,7 +71,11 @@ class PlayerDataManager extends BaseDataManager
         [
             "xuid" => $xuid,
             "name" => strtolower($name)
-        ]);
+        ],
+        null,
+            function (SqlError $error) {
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
         return ($this->data[$xuid] = new PlayerData($this->dataConnector, $xuid, strtolower($name)));
     }
 
@@ -80,7 +89,11 @@ class PlayerDataManager extends BaseDataManager
         $this->dataConnector->executeGeneric("economy.core.players.delete",
         [
             "xuid" => $xuid,
-        ]);
+        ],
+        null,
+            function (SqlError $error) {
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
         unset($this->data[$xuid]);
     }
 

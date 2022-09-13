@@ -15,6 +15,7 @@ use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
 use poggit\libasynql\DataConnector;
 use poggit\libasynql\libasynql;
+use poggit\libasynql\SqlError;
 
 class EconomyCore extends PluginBase
 {
@@ -65,8 +66,18 @@ class EconomyCore extends PluginBase
             "sqlite" => "sql/sqlite.sql",
             "mysql" => "sql/mysql.sql"
         ]);
-        $this->dataConnector->executeGeneric("economy.core.players.init");
-        $this->dataConnector->executeGeneric("economy.core.economys.init");
+        $this->dataConnector->executeGeneric("economy.core.players.init",
+        [],
+        null,
+            function (SqlError $error) {
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
+        $this->dataConnector->executeGeneric("economy.core.economys.init",
+        [],
+        null,
+            function (SqlError $error) {
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
         $this->dataConnector->waitAll();
 
         $this->playerDataManager = new PlayerDataManager($this->dataConnector);
