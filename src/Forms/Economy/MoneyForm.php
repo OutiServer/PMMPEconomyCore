@@ -25,44 +25,42 @@ class MoneyForm implements BaseForm
     {
         $form = new CustomForm(EconomyCore::getInstance(),
             $player,
-        LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.title"),
-        [
-            new ContentInput(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.input1"), "playerName", requirement: false),
-            new ContentLabel(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.label1"))
-        ],
-        function (Player $player, array $data): void {
-            if (!$data[0]) {
-                $economyData = EconomyDataManager::getInstance()->get($player->getXuid());
-                $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.me", [$economyData->getMoney()]));
-            }
-            elseif ($playerData = PlayerDataManager::getInstance()->getName($data[0])) {
-                $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
-                $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.player", [$playerData->getName(), $economyData->getMoney()]));
-            }
-            else {
-                $playerSelectorForm = new PlayerSelectorForm();
-                $playerSelectorForm->execute($player, $data[0], function (Player $player, PlayerData $playerData): void {
+            LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.title"),
+            [
+                new ContentInput(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.input1"), "playerName", requirement: false),
+                new ContentLabel(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.label1"))
+            ],
+            function (Player $player, array $data): void {
+                if (!$data[0]) {
+                    $economyData = EconomyDataManager::getInstance()->get($player->getXuid());
+                    $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.me", [$economyData->getMoney()]));
+                } elseif ($playerData = PlayerDataManager::getInstance()->getName($data[0])) {
                     $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
                     $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.player", [$playerData->getName(), $economyData->getMoney()]));
-                    $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.back"));
-                    FormUtil::backForm(EconomyCore::getInstance(),
-                        [EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid()), "reSend"],
-                        [],
-                        3);
-                });
-                return;
-            }
+                } else {
+                    $playerSelectorForm = new PlayerSelectorForm();
+                    $playerSelectorForm->execute($player, $data[0], function (Player $player, PlayerData $playerData): void {
+                        $economyData = EconomyDataManager::getInstance()->get($playerData->getXuid());
+                        $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.money.success.player", [$playerData->getName(), $economyData->getMoney()]));
+                        $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.back"));
+                        FormUtil::backForm(EconomyCore::getInstance(),
+                            [EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid()), "reSend"],
+                            [],
+                            3);
+                    });
+                    return;
+                }
 
-            $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.back"));
-            FormUtil::backForm(EconomyCore::getInstance(),
-                [EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid()), "reSend"],
-                [],
-                3);
-        },
-        function (Player $player): void {
-            EconomyCore::getInstance()->getStackFormManager()->deleteStackForm($player->getXuid(), self::FORM_KEY);
-            EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid())->reSend();
-        });
+                $player->sendMessage(LanguageManager::getInstance()->getLanguage($player->getLocale())->translateString("form.back"));
+                FormUtil::backForm(EconomyCore::getInstance(),
+                    [EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid()), "reSend"],
+                    [],
+                    3);
+            },
+            function (Player $player): void {
+                EconomyCore::getInstance()->getStackFormManager()->deleteStackForm($player->getXuid(), self::FORM_KEY);
+                EconomyCore::getInstance()->getStackFormManager()->getStackFormEnd($player->getXuid())->reSend();
+            });
 
         EconomyCore::getInstance()->getStackFormManager()->addStackForm($player->getXuid(), self::FORM_KEY, $form);
     }

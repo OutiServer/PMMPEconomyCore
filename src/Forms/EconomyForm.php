@@ -31,26 +31,23 @@ class EconomyForm implements BaseForm
 
         $form = new SimpleForm(EconomyCore::getInstance(),
             $player,
-        EconomyCore::getInstance()->getLanguageManager()->getLanguage($player->getLocale())->translateString("form.economyform.title"),
-        "",
-        $contents,
-        function (Player $player, int $data): void {
-            if ($data === 0) {
-                (new MoneyForm())->execute($player);
-            }
-            elseif ($data === 1 and Server::getInstance()->isOp($player->getName())) {
-                (new AddMoneyForm())->execute($player);
-            }
-            elseif ($data === 2 and Server::getInstance()->isOp($player->getName())) {
-                (new RemoveMoneyForm())->execute($player);
-            }
-            elseif ($data === 3 and Server::getInstance()->isOp($player->getName())) {
-                (new SetMoney())->execute($player);
-            }
-        },
-        function (Player $player): void {
-            EconomyCore::getInstance()->getStackFormManager()->deleteStack($player->getXuid());
-        });
+            EconomyCore::getInstance()->getLanguageManager()->getLanguage($player->getLocale())->translateString("form.economyform.title"),
+            "",
+            $contents,
+            function (Player $player, int $data): void {
+                if ($data === 0) {
+                    (new MoneyForm())->execute($player);
+                } elseif ($data === 1 and Server::getInstance()->isOp($player->getName())) {
+                    (new AddMoneyForm())->execute($player);
+                } elseif ($data === 2 and Server::getInstance()->isOp($player->getName())) {
+                    (new RemoveMoneyForm())->execute($player);
+                } elseif ($data === 3 and Server::getInstance()->isOp($player->getName())) {
+                    (new SetMoney())->execute($player);
+                }
+            },
+            function (Player $player): void {
+                EconomyCore::getInstance()->getStackFormManager()->deleteStack($player->getXuid());
+            });
 
         EconomyCore::getInstance()->getStackFormManager()->addStackForm($player->getXuid(), self::FORM_KEY, $form);
     }

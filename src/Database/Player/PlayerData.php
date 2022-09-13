@@ -24,10 +24,10 @@ class PlayerData extends BaseData
     protected function update(): void
     {
         $this->dataConnector->executeChange("economy.core.players.update",
-        [
-            "name" => $this->name,
-            "xuid" => $this->xuid
-        ]);
+            [
+                "name" => $this->name,
+                "xuid" => $this->xuid
+            ]);
     }
 
     /**
