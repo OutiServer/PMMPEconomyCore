@@ -71,6 +71,8 @@ class EconomyCore extends PluginBase
 
         $this->playerDataManager = new PlayerDataManager($this->dataConnector);
         $this->economyDataManager = new EconomyDataManager($this->dataConnector);
+        // 念の為
+        $this->dataConnector->waitAll();
 
         $this->stackFormManager = new StackFormManager();
         $this->languageManager = new LanguageManager("{$this->getFile()}resources/lang");
