@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace outiserver\economycore\Database\Economy;
 
 use outiserver\economycore\Database\Base\BaseData;
+use outiserver\economycore\EconomyCore;
 use poggit\libasynql\DataConnector;
+use poggit\libasynql\SqlError;
 
 class EconomyData extends BaseData
 {
@@ -27,7 +29,11 @@ class EconomyData extends BaseData
             [
                 "money" => $this->money,
                 "xuid" => $this->xuid
-            ]);
+            ],
+            null,
+            function (SqlError $error) {
+                EconomyCore::getInstance()->getLogger()->error("[SqlError] {$error->getErrorMessage()}");
+            });
     }
 
     /**
